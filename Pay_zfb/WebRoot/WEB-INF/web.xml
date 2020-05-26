@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name></display-name>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>zfb</servlet-name>
+    <servlet-class>com.servlet.zfb</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>zfb_cx</servlet-name>
+    <servlet-class>com.servlet.zfb_cx</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>zfb_close</servlet-name>
+    <servlet-class>com.servlet.zfb_close</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ZFB_TEXT</servlet-name>
+    <servlet-class>com.servlet.ZFB_TEXT</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Text</servlet-name>
+    <servlet-class>com.servlet.Text</servlet-class>
+  </servlet>
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>zfb</servlet-name>
+    <url-pattern>/servlet/zfb</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>zfb_cx</servlet-name>
+    <url-pattern>/servlet/zfb_cx</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>zfb_close</servlet-name>
+    <url-pattern>/servlet/zfb_close</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ZFB_TEXT</servlet-name>
+    <url-pattern>/servlet/ZFB_TEXT</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Text</servlet-name>
+    <url-pattern>/servlet/Text</url-pattern>
+  </servlet-mapping>	
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
