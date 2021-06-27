@@ -42,7 +42,7 @@ public class zfb_cx
     {
       e.printStackTrace();
     }
-    //dcavfegfydbv
+    //dcavfegfydbvjjj
     JSONObject jsonObject = JSON.parseObject(result);
     JSONObject jsonObject2 = JSON.parseObject(jsonObject.getString("alipay_trade_query_response"));
     if (jsonObject2.getString("code").equals("40004"))
