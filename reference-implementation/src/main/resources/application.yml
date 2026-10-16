@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  # 部署在反向代理之后时启用，用于正确解析 X-Forwarded-* 头部
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: secure-payment-reference
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:pay}?useSSL=true&requireSSL=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # 修复原代码"每次请求新建连接、无连接池"的问题（评估报告 CODE-004）
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 3000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # 支付宝通知为 form-urlencoded，请求体很小，仍设置上限防御异常请求
+  servlet:
+    multipart:
+      enabled: false
+
+# =============================================================================
+# 支付宝配置
+#
+# 安全要求（评估报告 SEC-001）：所有密钥一律通过环境变量注入，
+# 严禁把真实密钥写入本文件并提交到仓库。
+#
+#   ALIPAY_APP_ID                  应用 AppId
+#   ALIPAY_MERCHANT_PRIVATE_KEY    商户应用私钥（PKCS#8，单行）
+#   ALIPAY_PUBLIC_KEY              支付宝公钥
+#   ALIPAY_SELLER_ID               卖家支付宝账号 ID（PID）
+# =============================================================================
+alipay:
+  gateway-url: https://openapi.alipay.com/gateway.do
+  app-id: ${ALIPAY_APP_ID}
+  merchant-private-key: ${ALIPAY_MERCHANT_PRIVATE_KEY}
+  alipay-public-key: ${ALIPAY_PUBLIC_KEY}
+  seller-id: ${ALIPAY_SELLER_ID}
+  sign-type: RSA2
+  charset: UTF-8
+  notify-url: ${ALIPAY_NOTIFY_URL:https://your-domain.example.com/payment/alipay/notify}
+  return-url: ${ALIPAY_RETURN_URL:https://your-domain.example.com/payment/return}
+
+logging:
+  level:
+    root: INFO
+    com.example.pay: INFO
+  # 审计要求：通知留痕不可关闭
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
